@@ -8,9 +8,15 @@ npm install
 ```
 ### Develop
 ```
-npx gulp
+npm run dev
 ```
 ### Dist
 ```
-npx gulp dist
+npm run dist
 ```
+
+
+## Todo
+- eslint
+- animation
+- pretiier

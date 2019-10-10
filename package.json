@@ -1,16 +1,26 @@
 {
-  "name": "gulp_sass_pug_flocss-template-min",
+  "name": "gulp-webpack-jquery-sass-starter",
+  "description": "gulp-webpack-jquery-sass-starter",
   "version": "1.0.0",
-  "description": "gulp_sass_pug_flocss-template-min",
-  "main": "index.js",
+  "author": "JWS",
+  "browserslist": [
+    "last 2 versions"
+  ],
+  "dependencies": {
+    "jquery": "^3.4.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.6.3",
     "@babel/preset-env": "^7.6.3",
     "@babel/register": "^7.6.2",
+    "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "browser-sync": "^2.26.7",
     "connect-ssi": "^1.1.1",
     "del": "^5.1.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-babel": "^8.0.0",
@@ -39,17 +49,13 @@
     "webpack-cli": "^3.3.9",
     "webpack-stream": "^5.2.1"
   },
-  "browserslist": [
-    "last 2 versions"
-  ],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode production",
-    "develop": "webpack --mode development"
-  },
-  "author": "James Kojima",
   "license": "ISC",
-  "dependencies": {
-    "jquery": "^3.4.1"
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx gulp",
+    "dist": "npx gulp dist",
+    "build": "webpack --mode production",
+    "develop": "webpack --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
