@@ -18,6 +18,8 @@ const rename = require("gulp-rename");
   pug
 --------------------------------------------------------- */
 const pug = require('gulp-pug');
+const fs = require('fs');
+const data = require('gulp-data');
 
 /* ---------------------------------------------------------
   sass
@@ -76,7 +78,8 @@ const paths = {
   jsDist: './_dist/assets/js/',
   image: ['./_src/assets/images/**/*'],
   imageDist: './_dist/assets/images/',
-  dist: './_dist/'
+  dist: './_dist/',
+  meta: './_src/_data/meta.json'
 };
 
 /* =========================================================
@@ -96,6 +99,9 @@ function pugFunc(done) {
         errorHandler: notify.onError('Error: <%= error.message %>')
       })
     )
+    .pipe(data(function (file) {
+      return JSON.parse(fs.readFileSync(paths.meta));
+    }))
     .pipe(pug(option))
     .pipe(gulp.dest(paths.pugDist))
     .pipe(browserSync.reload({ stream: true }));

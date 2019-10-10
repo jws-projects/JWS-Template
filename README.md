@@ -2,21 +2,25 @@
 
 ## Usage
 
-### Install
+### Command
+
+#### Install
 ```
 npm install
 ```
-### Develop
+#### Develop
 ```
 npm run dev
 ```
-### Dist
+#### Dist
 ```
 npm run dist
 ```
 
+### metaについて
 
-## Todo
-- eslint
-- animation
-- pretiier
+- metaは`_src/_data/meta.json`にて管理
+
+## Memo
+
+- [OGP](https://digitalidentity.co.jp/blog/seo/ogp-share-setting.html)

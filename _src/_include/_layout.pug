@@ -1,18 +1,9 @@
 block var
-include _config
 
 <!DOCTYPE html>
 html(lang="ja")
   head
     include ./common/_head
+    include ./common/_gahead
 
-  body
-    include ./common/_header
-
-    main.l-main
-      block content
-
-    footer.l-footer
-      include ./common/_footer
-
-    include ./common/_script
+  block content
