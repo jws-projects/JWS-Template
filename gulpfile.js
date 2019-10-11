@@ -146,6 +146,11 @@ function sassFunc() {
 }
 
 function sassDistFunc() {
+  const plugins = [
+    cssImport({
+      path: ['node_modules']
+    })
+  ];
   return gulp
     .src(paths.sass, {
       sourcemaps: false
@@ -157,6 +162,7 @@ function sassDistFunc() {
         outputStyle: 'compressed'
       })
     )
+    .pipe(postcss(plugins))
     .pipe(cleanCSS())
     .pipe(
       autoprefixer({
