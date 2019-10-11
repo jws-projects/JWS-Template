@@ -333,7 +333,7 @@ gulp.task(
 );
 
 gulp.task(
-  'dist',
+  'build',
   gulp.series(
     gulp.series(cleanFunc),
     gulp.parallel(pugFunc, sassDistFunc, jsFunc, imageFunc, phpFunc),

@@ -1,8 +1,10 @@
-import animation from './component/animation';
-import modal from './component/modal';
+import animation from './modules/animation';
+import modal from './modules/modal';
+import slider from './modules/slider';
 
 $(function() {
   console.log('jws');
   animation();
+  slider('.swiper-container');
   modal('.inline');
 });

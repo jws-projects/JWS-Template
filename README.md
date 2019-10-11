@@ -5,21 +5,52 @@
 ### Command
 
 #### Install
+
 ```
 npm install
 ```
+
 #### Develop
+
 ```
 npm run dev
 ```
-#### Dist
+
+#### Build
+
 ```
-npm run dist
+npm run build
 ```
 
-### metaについて
+## 機能一覧
 
-- metaは`_src/_data/meta.json`にて管理
+### 開発環境
+
+- gulp
+- pug
+- webpack
+- babel
+- sass
+- eslint
+- prettier
+
+### ライブラリ
+
+- jQuery
+- modaal
+- GSAP(TweenMax/TimelineMax)
+- ScrollMagic
+- Swiper
+
+### Meta 一括生成
+
+- `<meta>`は`_src/_data/meta.json`にて管理
+- `pug`の`pageId`で`ID`を指定して、`meta.json`で編集
+
+```
+block var
+  - pageId = "index"
+```
 
 ## Memo
 
@@ -27,4 +58,5 @@ npm run dist
 - [TweenMax](https://greensock.com/docs/v2/TweenMax)
 - [TimelineMax](https://greensock.com/docs/v2/TimelineMax)
 - [ScrollMagic](https://scrollmagic.io/docs/index.html)
+- [Swiper](https://swiperjs.com/api/)
 - [OGP](https://digitalidentity.co.jp/blog/seo/ogp-share-setting.html)
