@@ -1,6 +1,6 @@
 {
   "name": "jws-template",
-  "description": "gulp webpack eslint prettier ",
+  "description": "gulp + webpack + jQuery + pug + sass",
   "version": "1.0.0",
   "author": "JWS",
   "browserslist": [

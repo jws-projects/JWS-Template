@@ -42,7 +42,7 @@ npm run build
 - ScrollMagic
 - Swiper
 
-### Meta 一括生成
+### metaの一括生成
 
 - `<meta>`は`_src/_data/meta.json`にて管理
 - `pug`の`pageId`で`ID`を指定して、`meta.json`で編集

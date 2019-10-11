@@ -201,9 +201,6 @@ function uncssFunc(done) {
       })
     )
     .pipe(postcss(plugins))
-    // .pipe(rename({
-    //   extname: '.optimized.css'
-    // }))
     .pipe(gulp.dest('_dist/assets/css/'));
   done();
 }
@@ -280,7 +277,6 @@ const browserSyncOptions = {
     middleware: [
       ssi({
         baseDir: __dirname + '/_dist',
-        // baseDir: paths.dist,
         ext: '.html'
       })
     ]
