@@ -7,11 +7,16 @@ block content
   body
     include ./_include/common/_gabody
     .wrap
-      .test
+      section.test
         h1 
           span.u-db [gulp + webpack + jquery + sass]
           span.u-db starter
         p.u-pt50-30.u-dib-di
           a(href="https://jws.work/", target="_blank") by JWS
-        .test__mov
-          video(src="./assets/images/videos/video.mp4" autoplay preload muted controls loop)
+      section.test.test-02
+        h1 section
+        .test__modal.u-mt20-20
+          a.inline(href="#modal" data-modaal-type="inline" data-modaal-animation="fade") button
+
+    #modal(style="display:none;")
+      p Modal

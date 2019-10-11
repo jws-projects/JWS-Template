@@ -1,4 +1,4 @@
-# gulp-webpack-jquery-sass-starter
+# JWS Template
 
 ## Usage
 
@@ -23,4 +23,8 @@ npm run dist
 
 ## Memo
 
+- [modaal](http://humaan.com/modaal/)
+- [TweenMax](https://greensock.com/docs/v2/TweenMax)
+- [TimelineMax](https://greensock.com/docs/v2/TimelineMax)
+- [ScrollMagic](https://scrollmagic.io/docs/index.html)
 - [OGP](https://digitalidentity.co.jp/blog/seo/ogp-share-setting.html)
