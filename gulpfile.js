@@ -66,6 +66,7 @@ const paths = {
     '!./_src/**/_*.pug',
     '!./_src/**/**/_*.pug'
   ],
+  pugComponents: ['./_src/_*.pug', './_src/**/_*.pug', './_src/**/**/_*.pug'],
   pugDist: './_dist/',
   html: ['./_src/*.html', './_src/**/*.html'],
   htmlDist: ['./_dist/*.html', './_dist/**/*.html'],
@@ -218,7 +219,9 @@ function imageFunc() {
           mozjpeg({
             quality: 80
           }),
-          pngquant()
+          pngquant({
+            quality: [0.7, 0.85]
+          })
         ],
         {
           verbose: true
@@ -313,6 +316,9 @@ function watchFunc(done) {
     done();
   };
   gulp.watch(paths.pug).on('change', gulp.series(pugFunc, browserReload));
+  gulp
+    .watch(paths.pugComponents)
+    .on('change', gulp.series(pugFunc, browserReload));
   gulp.watch(paths.sass).on('change', gulp.series(sassFunc, browserReload));
   gulp.watch(paths.js).on('change', gulp.series(jsFunc, browserReload));
   gulp.watch(paths.image).on('change', gulp.series(imageFunc, browserReload));

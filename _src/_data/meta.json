@@ -31,6 +31,19 @@
       "keywords": "keywords",
       "og_url": "https://bbbbbb",
       "og_type": "website"
+    },
+    "under2": {
+      "id": "under2",
+      "path": "../",
+      "title": "下層ページ",
+      "og_title": "下層ページ",
+      "tw_title": "下層ページ",
+      "description": "description",
+      "og_description": "description",
+      "tw_description": "description",
+      "keywords": "keywords",
+      "og_url": "https://bbbbbb",
+      "og_type": "website"
     }
   }
 }
