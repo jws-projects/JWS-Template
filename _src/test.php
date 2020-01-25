@@ -1,2 +1,0 @@
-$str = 'test';
-echo $str;
