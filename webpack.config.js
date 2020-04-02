@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  mode: 'development',
+  mode: 'none',
   entry: {
     main: [path.resolve(`${__dirname}/_src/assets/js/main.js`)]
   },
