@@ -1,15 +1,14 @@
-import modaal from 'modaal';
-export default function(selector) {
-  const options = {
-    animation_speed: 300,
-    background: '#000',
-    overlay_opacity: '0.8',
-    before_open: () => {
-      console.log('Before open');
-    },
-    after_close: () => {
-      console.log('after clone');
-    }
+import iziModal from './iziModal';
+
+export default function() {
+  $.fn.iziModal = iziModal;
+  var options1 = {
+    background: 'transparent',
+    width: 900,
+    overlayColor: 'rgba(0, 0, 0, 0.75)',
+    onOpening: function() {},
+    onClosing: function() {},
   };
-  $(selector).modaal(options);
+
+  // $('modal').iziModal(options1);
 }
