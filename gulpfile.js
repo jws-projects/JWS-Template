@@ -10,6 +10,9 @@ const ssi = require('connect-ssi');
 const del = require('del');
 const plumber = require('gulp-plumber');
 const notify = require('gulp-notify');
+const cache = require('gulp-cached');
+const progeny = require('gulp-progeny');
+const diff = require('gulp-diff-build');
 
 /* ---------------------------------------------------------
   pug
@@ -22,6 +25,8 @@ const data = require('gulp-data');
   sass
 --------------------------------------------------------- */
 const sass = require('gulp-sass');
+const nodesass = require('node-sass');
+sass.compiler = nodesass;
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
 const gcmq = require('gulp-group-css-media-queries');
@@ -37,7 +42,8 @@ const webpackStream = require('webpack-stream');
 const webpack = require('webpack');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify-es').default;
-const webpackConfig = require('./webpack.config');
+const webpackDevConfig = require('./webpack.dev');
+const webpackProdConfig = require('./webpack.prod');
 
 /* ---------------------------------------------------------
   image
@@ -54,7 +60,7 @@ const paths = {
   sass: [
     './_src/assets/sass/*.scss',
     './_src/assets/sass/**/*.scss',
-    './_src/assets/sass/**/**/*.scss'
+    './_src/assets/sass/**/**/*.scss',
   ],
   sassDist: './_dist/assets/css/',
   css: ['./_dist/assets/css/*.css'],
@@ -64,7 +70,7 @@ const paths = {
     './_src/**/**/*.pug',
     '!./_src/_*.pug',
     '!./_src/**/_*.pug',
-    '!./_src/**/**/_*.pug'
+    '!./_src/**/**/_*.pug',
   ],
   pugComponents: ['./_src/_*.pug', './_src/**/_*.pug', './_src/**/**/_*.pug'],
   pugDist: './_dist/',
@@ -77,7 +83,7 @@ const paths = {
   image: ['./_src/assets/images/**/*'],
   imageDist: './_dist/assets/images/',
   dist: './_dist/',
-  meta: './_src/_data/meta.json'
+  meta: './_src/_data/meta.json',
 };
 
 /* =========================================================
@@ -88,19 +94,19 @@ const paths = {
 --------------------------------------------------------- */
 function pugFunc(done) {
   const option = {
-    pretty: true
+    pretty: true,
   };
   return gulp
     .src(paths.pug)
     .pipe(
       plumber({
-        errorHandler: notify.onError('Error: <%= error.message %>')
-      })
+        errorHandler: notify.onError('Error: <%= error.message %>'),
+      }),
     )
     .pipe(
       data(function() {
         return JSON.parse(fs.readFileSync(paths.meta));
-      })
+      }),
     )
     .pipe(pug(option))
     .pipe(gulp.dest(paths.pugDist))
@@ -113,75 +119,69 @@ function pugFunc(done) {
 function sassFunc() {
   const plugins = [
     cssImport({
-      path: ['node_modules']
-    })
+      path: ['node_modules'],
+    }),
   ];
   return gulp
-    .src(paths.sass, {
-      sourcemaps: true
-    })
-    .pipe(plumber())
+    .src(paths.sass)
+    .pipe(
+      plumber({
+        errorHandler: notify.onError('<%= error.message %>'),
+      }),
+    )
     .pipe(sassGlob())
     .pipe(
       sass({
-        outputStyle: 'expanded'
-      })
+        outputStyle: 'expanded',
+      }),
     )
     .pipe(postcss(plugins))
-    .pipe(cleanCSS())
     .pipe(
       autoprefixer({
-        cascade: false
-      })
+        cascade: false,
+      }),
     )
     .pipe(
       gulp.dest(paths.sassDist, {
-        sourcemaps: './sourcemaps'
-      })
+        sourcemaps: './sourcemaps',
+      }),
     )
     .pipe(
       browserSync.reload({
-        stream: true
-      })
+        stream: true,
+      }),
     );
 }
 
 function sassDistFunc() {
   const plugins = [
     cssImport({
-      path: ['node_modules']
-    })
+      path: ['node_modules'],
+    }),
   ];
   return gulp
     .src(paths.sass, {
-      sourcemaps: false
+      sourcemaps: false,
     })
-    .pipe(plumber())
+    .pipe(
+      plumber({
+        errorHandler: notify.onError('<%= error.message %>'),
+      }),
+    )
     .pipe(sassGlob())
     .pipe(
       sass({
-        outputStyle: 'compressed'
-      })
+        outputStyle: 'expanded',
+      }),
     )
     .pipe(postcss(plugins))
     .pipe(cleanCSS())
     .pipe(
       autoprefixer({
-        cascade: false
-      })
+        cascade: false,
+      }),
     )
-    .pipe(gcmq())
-    .pipe(
-      sass({
-        outputStyle: 'compressed'
-      })
-    )
-    .pipe(gulp.dest(paths.sassDist))
-    .pipe(
-      browserSync.reload({
-        stream: true
-      })
-    );
+    .pipe(gulp.dest(paths.sassDist));
 }
 
 /* ---------------------------------------------------------
@@ -191,15 +191,15 @@ function uncssFunc(done) {
   const plugins = [
     uncss({
       html: paths.htmlDist,
-      ignore: []
-    })
+      ignore: [],
+    }),
   ];
   gulp
     .src('_dist/assets/css/utility.css')
     .pipe(
       plumber({
-        errorHandler: notify.onError('Error: <%= error.message %>')
-      })
+        errorHandler: notify.onError('Error: <%= error.message %>'),
+      }),
     )
     .pipe(postcss(plugins))
     .pipe(gulp.dest('_dist/assets/css/'));
@@ -217,22 +217,22 @@ function imageFunc() {
       imagemin(
         [
           mozjpeg({
-            quality: 80
+            quality: 90,
           }),
           pngquant({
-            quality: [0.7, 0.85]
-          })
+            quality: [0.9, 0.95],
+          }),
         ],
         {
-          verbose: true
-        }
-      )
+          verbose: true,
+        },
+      ),
     )
     .pipe(gulp.dest(paths.imageDist))
     .pipe(
       browserSync.reload({
-        stream: true
-      })
+        stream: true,
+      }),
     );
 }
 
@@ -241,16 +241,33 @@ function imageFunc() {
 --------------------------------------------------------- */
 function jsFunc() {
   return plumber({
-    errorHandler: notify.onError('Error: <%= error.message %>')
+    errorHandler: notify.onError('Error: <%= error.message %>'),
   })
-    .pipe(webpackStream(webpackConfig, webpack))
+    .pipe(webpackStream(webpackDevConfig, webpack))
+    .pipe(babel())
+    .pipe(gulp.dest(paths.jsDist))
+    .pipe(
+      browserSync.reload({
+        stream: true,
+      }),
+    );
+}
+
+/* ---------------------------------------------------------
+  js
+--------------------------------------------------------- */
+function jsDistFunc() {
+  return plumber({
+    errorHandler: notify.onError('Error: <%= error.message %>'),
+  })
+    .pipe(webpackStream(webpackProdConfig, webpack))
     .pipe(babel())
     .pipe(uglify())
     .pipe(gulp.dest(paths.jsDist))
     .pipe(
       browserSync.reload({
-        stream: true
-      })
+        stream: true,
+      }),
     );
 }
 
@@ -263,8 +280,8 @@ function phpFunc() {
     .pipe(gulp.dest(paths.phpDist))
     .pipe(
       browserSync.reload({
-        stream: true
-      })
+        stream: true,
+      }),
     );
 }
 
@@ -280,15 +297,15 @@ const browserSyncOptions = {
     middleware: [
       ssi({
         baseDir: __dirname + '/_dist',
-        ext: '.html'
-      })
-    ]
+        ext: '.html',
+      }),
+    ],
   },
   ghostMode: {
     clicks: false,
     forms: false,
-    scroll: false
-  }
+    scroll: false,
+  },
 };
 
 function browserSyncFunc(done) {
@@ -311,7 +328,7 @@ function cleanFunc(done) {
 function watchFunc(done) {
   const browserReload = function() {
     browserSync.reload({
-      stream: true
+      stream: true,
     });
     done();
   };
@@ -336,17 +353,14 @@ gulp.task(
   'default',
   gulp.series(
     gulp.parallel(pugFunc, sassFunc, jsFunc, imageFunc, phpFunc),
-    gulp.series(browserSyncFunc, watchFunc)
-  )
+    gulp.series(browserSyncFunc, watchFunc),
+  ),
 );
 
 gulp.task(
   'build',
   gulp.series(
     gulp.series(cleanFunc),
-    gulp.parallel(pugFunc, sassDistFunc, jsFunc, imageFunc, phpFunc),
-    gulp.series(uncssFunc)
-  )
+    gulp.parallel(pugFunc, sassDistFunc, imageFunc, jsDistFunc, phpFunc),
+  ),
 );
-
-gulp.task('uncss', gulp.series(uncssFunc));
