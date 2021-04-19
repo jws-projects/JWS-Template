@@ -1,67 +1,96 @@
 // block
-.u-db {
+.hp_db {
   display: block;
 }
-.u-db-pc {
+.hp_db-pc {
   display: block;
   @include tab {
     display: none;
   }
 }
-.u-db-sp {
+.hp_db-sp {
   display: none;
   @include tab {
     display: block;
   }
 }
+.hp_dib-db {
+  display: inline-block;
+  @include tab {
+    display: block;
+  }
+}
+
+.hp_dn-sp {
+  @include tab {
+    display: none !important;
+  }
+}
+.hp_dn-pc {
+  @include onlyPC {
+    display: none !important;
+  }
+}
+
+.hp_dn-di {
+  display: none;
+  @include tab {
+    display: inline;
+  }
+}
 
 // inline-block
-.u-dib {
+.hp_dib {
   display: inline-block;
 }
-.u-dib-pc {
+.hp_dib-pc {
   display: inline-block;
   @include tab {
     display: none;
   }
 }
-.u-dib-sp {
+.hp_dib-sp {
   display: none;
   @include tab {
     display: inline-block;
   }
 }
-.u-db-di {
+.hp_db-dib {
+  display: block;
+  @include tab {
+    display: inline-block;
+  }
+}
+.hp_db-di {
   display: block;
   @include tab {
     display: inline;
   }
 }
-.u-dib-di {
-  display: inline;
+.hp_dib-di {
+  display: inline-block;
   @include tab {
     display: inline;
   }
 }
-.u-dib-db {
+.hp_dib-db {
   display: inline-block;
   @include tab {
     display: block;
   }
 }
 
-
 // inline
-.u-di {
+.hp_di {
   display: inline;
 }
-.u-di-pc {
+.hp_di-pc {
   display: inline;
   @include tab {
     display: none;
   }
 }
-.u-di-sp {
+.hp_di-sp {
   display: none;
   @include tab {
     display: inline;
@@ -69,16 +98,16 @@
 }
 
 // flex
-.u-df {
+.hp_df {
   display: flex;
 }
-.u-df-pc {
+.hp_df-pc {
   display: flex;
   @include tab {
     display: none;
   }
 }
-.u-df-sp {
+.hp_df-sp {
   display: none;
   @include tab {
     display: flex;
@@ -86,18 +115,22 @@
 }
 
 // flex
-.u-dif {
+.hp_dif {
   display: inline-flex;
 }
-.u-dif-pc {
+.hp_dif-pc {
   display: inline-flex;
   @include tab {
     display: none;
   }
 }
-.u-dif-sp {
+.hp_dif-sp {
   display: none;
   @include tab {
     display: inline-flex;
   }
+}
+
+.hp_w100p {
+  width: 100%;
 }

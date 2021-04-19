@@ -1,0 +1,28 @@
+$pc-design-width: 1400;
+$sp-design-width: 375; // SPデザインの幅を設定
+
+@function calcvw($num, $width: $sp-design-width) {
+  @return (1vw * $num / $width * 100);
+}
+
+@function calcvwPC($num, $width: $pc-design-width) {
+  @return (1vw * $num / $width * 100);
+}
+
+@function calcPer($num, $width: $sp-design-width) {
+  @return (1% * $num / $width * 100);
+}
+
+@function calcvwPerPC($num, $width: $pc-design-width) {
+  @return (1% * $num / $width * 100);
+}
+
+@function get_fzvw($size, $viewport: $sp-design-width) {
+  $rate: 100 / $viewport;
+  @return $rate * $size * 1vw;
+}
+
+@mixin fz_vw($font_size: 10) {
+  // font-size: $font_size * 1px;
+  font-size: get_fzvw($font_size);
+}

@@ -1,0 +1,10 @@
+.hp_hov {
+  &__op {
+    transition: 0.3s opacity ease;
+    @include onlyPC {
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+}

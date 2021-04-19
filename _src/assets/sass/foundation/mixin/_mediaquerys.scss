@@ -1,35 +1,64 @@
+@mixin lllpc {
+  @media only screen and (max-width: ($lllpc)) {
+    @content;
+  }
+}
 @mixin llpc {
-  @media (max-width: ($llpc)) {
+  @media only screen and (max-width: ($llpc)) {
     @content;
   }
 }
 @mixin lpc {
-  @media (max-width: ($lpc)) {
+  @media only screen and (max-width: ($lpc)) {
     @content;
   }
 }
 @mixin pc {
-  @media (max-width: ($pc)) {
+  @media only screen and (max-width: ($pc)) {
     @content;
   }
 }
 @mixin spc {
-  @media (max-width: ($spc)) {
+  @media only screen and (max-width: ($spc)) {
     @content;
   }
 }
 @mixin tab {
-  @media (max-width: ($tab)) {
+  @media only screen and (max-width: ($tab)) {
     @content;
   }
 }
 @mixin sp {
-  @media (max-width: ($sp)) {
+  @media only screen and (max-width: ($sp)) {
     @content;
   }
 }
 @mixin ssp {
-  @media (max-width: ($ssp)) {
+  @media only screen and (max-width: ($ssp)) {
+    @content;
+  }
+}
+@mixin onlyPC {
+  @media only screen and (min-width: (#{$tab + 1px})) {
+    @content;
+  }
+}
+
+@mixin mediumLarge {
+  @media all and (max-width: 1410px) {
+    @content;
+  }
+}
+
+@mixin mediumSmall {
+  @media all and (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media all and (min-width: $tab+1) and (max-width: 1410px) {
+    // @media only screen and (min-width: $tab+1) and (max-width: 1200px) {
     @content;
   }
 }

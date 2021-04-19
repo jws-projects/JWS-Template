@@ -1,0 +1,18 @@
+@mixin transition {
+  transition: 0.2s all ease;
+}
+
+@mixin transitionSlow {
+  transition: 0.5s all ease;
+}
+
+@mixin headerTransition {
+  transition: 0.5s transform ease;
+}
+
+@mixin opacityTransition {
+  transition: 0.3s opacity ease;
+  &:hover {
+    opacity: 0.6;
+  }
+}
